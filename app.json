@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "Astra",
+    "slug": "astra",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "astra",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#070B14",
+    "primaryColor": "#22D3EE",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.astra.orbital",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "A Astra usa sua localizacao para exibir o clima local e as passagens de satelites sobre voce.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.astra.orbital",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#070B14"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png",
+      "name": "Astra · Monitoramento Orbital"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "A Astra usa sua localizacao para exibir o clima local e as passagens de satelites sobre voce."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#070B14"
+        }
+      ],
+      "expo-system-ui",
+      "expo-font"
+    ]
+  }
+}
