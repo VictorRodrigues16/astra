@@ -30,8 +30,9 @@ export function useIss(intervalMs: number = duration.issPoll): UseIssResult {
     let timer: ReturnType<typeof setTimeout>;
 
     const tick = async () => {
-      // Evita gastar rede/bateria com o app em segundo plano.
-      if (AppState.currentState !== 'active') {
+      // Pausa o polling em segundo plano para poupar bateria/dados, mas sempre
+      // garante a primeira busca (mesmo que o app inicie sem estar em foco).
+      if (AppState.currentState !== 'active' && hasData.current) {
         if (active) timer = setTimeout(tick, intervalMs);
         return;
       }

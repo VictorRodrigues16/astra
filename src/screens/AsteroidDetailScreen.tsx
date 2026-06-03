@@ -139,7 +139,7 @@ export function AsteroidDetailScreen({ route, navigation }: Props) {
         </Card>
 
         <Card>
-          <DetailRow label="Diâmetro estimado" value={`${formatDiameter(asteroid.diameterMinM)} – ${formatDiameter(asteroid.diameterMaxM)}`} />
+          <DetailRow label="Diâmetro estimado" value={`${formatDiameter(asteroid.diameterMinM)} a ${formatDiameter(asteroid.diameterMaxM)}`} />
           <DetailRow label="Velocidade relativa" value={`${formatNumber(asteroid.velocityKph)} km/h`} />
           <DetailRow label="Velocidade (km/s)" value={`${formatNumber(asteroid.velocityKps, 2)} km/s`} />
           <DetailRow label="Magnitude absoluta (H)" value={formatNumber(asteroid.magnitude, 1)} />

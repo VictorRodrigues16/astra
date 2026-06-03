@@ -39,7 +39,9 @@ function normalizeApod(raw: ApodRaw): Apod {
     imageUrl: raw.media_type === 'image' ? raw.url : (raw.thumbnail_url ?? raw.hdurl ?? raw.url),
     hdImageUrl: raw.hdurl,
     mediaType: raw.media_type,
-    copyright: raw.copyright?.trim(),
+    // O campo copyright costuma vir com quebras de linha e creditos extensos;
+    // colapsamos os espacos para uma linha so.
+    copyright: raw.copyright?.replace(/\s+/g, ' ').trim() || undefined,
   };
 }
 
@@ -61,8 +63,14 @@ export async function fetchApod(options: { force?: boolean } = {}): Promise<Serv
 
 /* --------------------------------- NeoWs -------------------------------- */
 function cleanName(name: string): string {
-  // "(2020 AB1)" -> "2020 AB1"; mantem nomes proprios como "Apophis".
-  return name.replace(/^\(/, '').replace(/\)$/, '').trim();
+  // Remove os parenteses apenas quando envolvem o nome inteiro
+  // ("(2020 AB1)" -> "2020 AB1"), preservando casos como
+  // "437844 (1999 MN)" que ficariam desbalanceados.
+  const trimmed = name.trim();
+  if (trimmed.startsWith('(') && trimmed.endsWith(')')) {
+    return trimmed.slice(1, -1).trim();
+  }
+  return trimmed;
 }
 
 function normalizeNeo(raw: NeoRaw, dateKey: string): Asteroid {

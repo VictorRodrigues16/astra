@@ -27,6 +27,9 @@ interface StatTileProps {
 export function StatTile({ icon, label, value, unit, tint, live, loading, onPress }: StatTileProps) {
   const { theme } = useTheme();
   const color = tint ?? theme.accent.color;
+  // Valores curtos ganham destaque; valores longos diminuem para nao quebrar.
+  const valueSize =
+    value.length <= 4 ? theme.fontSize['2xl'] : value.length <= 7 ? theme.fontSize.xl : theme.fontSize.lg;
 
   return (
     <Card variant="alt" padding="lg" shadow="none" onPress={onPress} style={{ flex: 1, minWidth: 150 }}>
@@ -51,11 +54,16 @@ export function StatTile({ icon, label, value, unit, tint, live, loading, onPres
           <Skeleton width={84} height={26} radius={6} />
         ) : (
           <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 3 }}>
-            <AppText mono style={{ fontSize: theme.fontSize['2xl'], fontWeight: '700', color: theme.colors.text }}>
+            <AppText
+              mono
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={{ fontSize: valueSize, fontWeight: '700', color: theme.colors.text, flexShrink: 1 }}
+            >
               {value}
             </AppText>
             {unit ? (
-              <AppText mono variant="caption" style={{ color: theme.colors.textSecondary }}>
+              <AppText mono numberOfLines={1} variant="caption" style={{ color: theme.colors.textSecondary }}>
                 {unit}
               </AppText>
             ) : null}

@@ -77,7 +77,7 @@ export function ApodHero({ apod }: { apod: Apod }) {
         </View>
 
         <View style={{ position: 'absolute', left: theme.spacing.lg, right: theme.spacing.lg, bottom: theme.spacing.lg }}>
-          <AppText variant="caption" style={{ color: 'rgba(255,255,255,0.75)' }}>
+          <AppText variant="caption" numberOfLines={1} style={{ color: 'rgba(255,255,255,0.75)' }}>
             {formatDate(apod.date)}
             {apod.copyright ? `  ·  ${apod.copyright}` : ''}
           </AppText>

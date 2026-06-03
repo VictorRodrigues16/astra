@@ -17,6 +17,14 @@ export interface ServiceResult<T> {
   updatedAt: number;
 }
 
+/**
+ * Requisicoes de rede em andamento, por chave de cache. Permite que chamadas
+ * concorrentes identicas (ex.: re-render do React, StrictMode) compartilhem a
+ * mesma promessa, evitando disparar a mesma requisicao varias vezes e poupando
+ * o limite da API.
+ */
+const inflight = new Map<string, Promise<ServiceResult<unknown>>>();
+
 export async function cachedRequest<T>(
   cacheName: string,
   maxAgeMs: number,
@@ -30,14 +38,25 @@ export async function cachedRequest<T>(
     return { data: cached.value, fromCache: true, updatedAt: cached.storedAt };
   }
 
-  try {
-    const data = await fetcher();
-    await writeCache(cacheName, data, now);
-    return { data, fromCache: false, updatedAt: now };
-  } catch (error) {
-    if (cached) {
-      return { data: cached.value, fromCache: true, updatedAt: cached.storedAt };
+  // Reaproveita uma requisicao identica que ja esteja em andamento.
+  const pending = inflight.get(cacheName);
+  if (pending) return pending as Promise<ServiceResult<T>>;
+
+  const request = (async (): Promise<ServiceResult<T>> => {
+    try {
+      const data = await fetcher();
+      await writeCache(cacheName, data, now);
+      return { data, fromCache: false, updatedAt: now };
+    } catch (error) {
+      if (cached) {
+        return { data: cached.value, fromCache: true, updatedAt: cached.storedAt };
+      }
+      throw error;
+    } finally {
+      inflight.delete(cacheName);
     }
-    throw error;
-  }
+  })();
+
+  inflight.set(cacheName, request as Promise<ServiceResult<unknown>>);
+  return request;
 }
