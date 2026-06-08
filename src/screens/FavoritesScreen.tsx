@@ -87,7 +87,7 @@ export function FavoritesScreen() {
 
   return (
     <Screen padded>
-      <View style={{ paddingTop: theme.spacing.sm }}>
+      <View style={{ paddingTop: theme.spacing.lg }}>
         <AppHeader
           overline="Sua coleção"
           title="Favoritos"

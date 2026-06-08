@@ -72,6 +72,7 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingHorizontal: theme.spacing.lg,
+          paddingTop: theme.spacing.lg,
           paddingBottom: theme.spacing['5xl'],
           gap: theme.spacing.xl,
         }}

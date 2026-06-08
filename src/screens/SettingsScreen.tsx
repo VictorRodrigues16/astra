@@ -69,7 +69,7 @@ export function SettingsScreen() {
     <Screen padded>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingTop: theme.spacing.sm, paddingBottom: theme.spacing['5xl'], gap: theme.spacing.xl }}
+        contentContainerStyle={{ paddingTop: theme.spacing.lg, paddingBottom: theme.spacing['5xl'], gap: theme.spacing.xl }}
       >
         <AppHeader overline="Preferências" title="Configurações" subtitle="Deixe a Astra com a sua cara" />
 

@@ -53,7 +53,7 @@ export function ExploreScreen() {
 
   return (
     <Screen padded>
-      <View style={{ paddingTop: theme.spacing.sm }}>
+      <View style={{ paddingTop: theme.spacing.lg }}>
         <AppHeader overline="Sensoriamento" title="Explorar" subtitle="Asteroides próximos à Terra (NASA NeoWs)" />
         <SearchSortBar
           search={search}
