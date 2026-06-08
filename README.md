@@ -69,7 +69,7 @@ A Astra toca diretamente vários temas da economia espacial:
 - **Dark mode** (claro, escuro ou automático pelo sistema).
 - **Personalização visual**: 5 cores de destaque (accent) que mudam o app inteiro.
 - Unidade de temperatura (°C / °F) e opção de **reduzir animações** (acessibilidade).
-- Campo para usar sua **chave pessoal da NASA**.
+- Reduzir animações (acessibilidade).
 - Informações do projeto, ODS, fontes de dados e integrantes.
 
 ---
@@ -127,13 +127,13 @@ Cada serviço normaliza a resposta "crua" da API em um **modelo de domínio** li
 
 | API | Uso | Chave |
 |---|---|---|
-| [NASA APOD](https://api.nasa.gov/) | Imagem astronômica do dia | Opcional (`DEMO_KEY`) |
-| [NASA NeoWs](https://api.nasa.gov/) | Asteroides próximos à Terra | Opcional (`DEMO_KEY`) |
+| [NASA APOD](https://api.nasa.gov/) | Imagem astronômica do dia | `constants.ts` |
+| [NASA NeoWs](https://api.nasa.gov/) | Asteroides próximos à Terra | `constants.ts` |
 | [Open-Meteo](https://open-meteo.com/) | Clima atual e previsão | Não precisa |
 | [wheretheiss.at](https://wheretheiss.at/) | Posição da ISS em tempo real | Não precisa |
 | [BigDataCloud](https://www.bigdatacloud.com/) | Geocodificação reversa (cidade) | Não precisa |
 
-> 💡 O app já funciona **sem nenhuma configuração**. A NASA usa a `DEMO_KEY` por padrão (limitada a ~30 req/h). Para uso intenso, gere uma chave gratuita em [api.nasa.gov](https://api.nasa.gov/) e cadastre nas **Configurações** do app.
+> 💡 A chave da NASA fica em `src/constants.ts` (`NASA_API_KEY`). Por padrão vem `DEMO_KEY` (limitada a ~30 req/h); para uso intenso, gere uma chave gratuita em [api.nasa.gov](https://api.nasa.gov/) e substitua o valor da constante.
 
 ---
 

@@ -1,10 +1,10 @@
 /**
  * SettingsScreen — personalizacao visual (tema claro/escuro/sistema, cor de
- * destaque), unidade de temperatura, reducao de animacoes, chave pessoal da
- * NASA e informacoes do projeto (ODS, fontes de dados e integrantes).
+ * destaque), unidade de temperatura, reducao de animacoes e informacoes do
+ * projeto (ODS, fontes de dados e integrantes).
  */
-import React, { useState } from 'react';
-import { Linking, Pressable, ScrollView, Switch, TextInput, View } from 'react-native';
+import React from 'react';
+import { Linking, Pressable, ScrollView, Switch, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -14,8 +14,8 @@ import { useSettings } from '../contexts/SettingsContext';
 import { accentPresets } from '../theme';
 import { withAlpha } from '../utils/color';
 import { confirmAction } from '../utils/confirm';
-import { successFeedback, tapFeedback } from '../utils/haptics';
-import { APP, DATA_SOURCES, NASA_KEY_URL, ODS, TEAM } from '../constants';
+import { tapFeedback } from '../utils/haptics';
+import { APP, DATA_SOURCES, ODS, TEAM } from '../constants';
 
 function SettingsSection({ title, children }: { title: string; children: React.ReactNode }) {
   const { theme } = useTheme();
@@ -55,9 +55,8 @@ function Row({
 
 export function SettingsScreen() {
   const { theme } = useTheme();
-  const { settings, setThemeMode, setAccentKey, setTempUnit, setReduceMotion, setNasaKey, resetSettings } =
+  const { settings, setThemeMode, setAccentKey, setTempUnit, setReduceMotion, resetSettings } =
     useSettings();
-  const [keyDraft, setKeyDraft] = useState(settings.nasaApiKey);
 
   const themeOptions = [
     { key: 'light', label: 'Claro' },
@@ -152,59 +151,6 @@ export function SettingsScreen() {
           />
         </SettingsSection>
 
-        {/* Chave da NASA */}
-        <SettingsSection title="Chave da API NASA">
-          <Row
-            icon="key"
-            label="Chave pessoal (opcional)"
-            description={settings.nasaApiKey ? 'Usando sua chave pessoal' : 'Usando a chave de demonstração (DEMO_KEY)'}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: theme.spacing.sm,
-              height: 46,
-              paddingHorizontal: theme.spacing.md,
-              marginTop: theme.spacing.sm,
-              borderRadius: theme.radius.lg,
-              backgroundColor: theme.colors.surfaceAlt,
-              borderWidth: 1,
-              borderColor: theme.colors.border,
-            }}
-          >
-            <TextInput
-              value={keyDraft}
-              onChangeText={setKeyDraft}
-              placeholder="Cole sua chave da NASA"
-              placeholderTextColor={theme.colors.textMuted}
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={{ flex: 1, color: theme.colors.text, fontSize: theme.fontSize.sm }}
-            />
-            <Pressable
-              onPress={() => {
-                setNasaKey(keyDraft.trim());
-                successFeedback();
-              }}
-              hitSlop={8}
-            >
-              <AppText variant="caption" color="accent" style={{ fontWeight: '700' }}>
-                Salvar
-              </AppText>
-            </Pressable>
-          </View>
-          <Pressable
-            onPress={() => Linking.openURL(NASA_KEY_URL).catch(() => {})}
-            style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: theme.spacing.md }}
-          >
-            <Ionicons name="open-outline" size={14} color={theme.accent.color} />
-            <AppText variant="caption" color="accent" style={{ fontWeight: '600' }}>
-              Obter uma chave gratuita em api.nasa.gov
-            </AppText>
-          </Pressable>
-        </SettingsSection>
-
         {/* Sobre o projeto */}
         <SettingsSection title="Sobre o projeto">
           <AppText variant="body" style={{ lineHeight: 21 }}>
@@ -290,10 +236,12 @@ export function SettingsScreen() {
           variant="ghost"
           fullWidth
           onPress={() =>
-            confirmAction('Restaurar padrões', 'Voltar todas as preferências ao estado inicial?', () => {
-              resetSettings();
-              setKeyDraft('');
-            }, 'Restaurar')
+            confirmAction(
+              'Restaurar padrões',
+              'Voltar todas as preferências ao estado inicial?',
+              resetSettings,
+              'Restaurar',
+            )
           }
         />
 

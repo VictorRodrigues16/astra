@@ -2,9 +2,9 @@
  * Servico das APIs da NASA: APOD (imagem astronomica do dia) e NeoWs
  * (asteroides proximos a Terra).
  *
- * A chave da API pode ser personalizada pelo usuario nas Configuracoes; na
- * ausencia dela usamos a chave publica de demonstracao DEMO_KEY.
+ * A chave da API e definida em src/constants.ts (NASA_API_KEY).
  */
+import { NASA_API_KEY } from '../constants';
 import { addDays, toISODate } from '../utils/date';
 import { createClient } from './http';
 import { ServiceResult, cachedRequest } from './withCache';
@@ -17,18 +17,6 @@ import type {
 } from '../types';
 
 const client = createClient('https://api.nasa.gov');
-
-const DEMO_KEY = 'DEMO_KEY';
-let nasaApiKey = DEMO_KEY;
-
-/** Atualizada pelo SettingsContext quando o usuario salva a propria chave. */
-export function setNasaApiKey(key: string | null | undefined): void {
-  nasaApiKey = key && key.trim() ? key.trim() : DEMO_KEY;
-}
-
-export function isUsingDemoKey(): boolean {
-  return nasaApiKey === DEMO_KEY;
-}
 
 /* --------------------------------- APOD --------------------------------- */
 function normalizeApod(raw: ApodRaw): Apod {
@@ -53,7 +41,7 @@ export async function fetchApod(options: { force?: boolean } = {}): Promise<Serv
     SIX_HOURS,
     async () => {
       const { data } = await client.get<ApodRaw>('/planetary/apod', {
-        params: { api_key: nasaApiKey, thumbs: true },
+        params: { api_key: NASA_API_KEY, thumbs: true },
       });
       return normalizeApod(data);
     },
@@ -129,7 +117,7 @@ export async function fetchAsteroids(
     THIRTY_MIN,
     async () => {
       const { data } = await client.get<NeoFeedRaw>('/neo/rest/v1/feed', {
-        params: { start_date: start, end_date: end, api_key: nasaApiKey },
+        params: { start_date: start, end_date: end, api_key: NASA_API_KEY },
       });
       return flattenFeed(data);
     },

@@ -1,8 +1,7 @@
 /**
  * SettingsContext — fonte unica de verdade das preferencias do usuario.
  *
- * Persistido no AsyncStorage e carregado na inicializacao. Tambem sincroniza
- * a chave da NASA com a camada de servico.
+ * Persistido no AsyncStorage e carregado na inicializacao.
  */
 import React, {
   createContext,
@@ -13,7 +12,6 @@ import React, {
   useState,
 } from 'react';
 
-import { setNasaApiKey } from '../services/nasa.service';
 import { StorageKeys } from '../storage/keys';
 import { getItem, setItem } from '../storage/storage';
 import type { TempUnit } from '../utils/format';
@@ -25,8 +23,6 @@ export interface Settings {
   themeMode: ThemeMode;
   accentKey: string;
   tempUnit: TempUnit;
-  /** Chave pessoal da NASA; vazio usa a DEMO_KEY. */
-  nasaApiKey: string;
   /** Reduz animacoes (acessibilidade / preferencia). */
   reduceMotion: boolean;
 }
@@ -35,7 +31,6 @@ const DEFAULT_SETTINGS: Settings = {
   themeMode: 'dark',
   accentKey: defaultAccentKey,
   tempUnit: 'celsius',
-  nasaApiKey: '',
   reduceMotion: false,
 };
 
@@ -46,7 +41,6 @@ interface SettingsContextValue {
   setThemeMode: (mode: ThemeMode) => void;
   setAccentKey: (key: string) => void;
   setTempUnit: (unit: TempUnit) => void;
-  setNasaKey: (key: string) => void;
   setReduceMotion: (value: boolean) => void;
   resetSettings: () => void;
 }
@@ -63,9 +57,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     (async () => {
       const saved = await getItem<Partial<Settings>>(StorageKeys.settings);
       if (mounted && saved) {
-        const merged = { ...DEFAULT_SETTINGS, ...saved };
-        setSettings(merged);
-        setNasaApiKey(merged.nasaApiKey);
+        setSettings({ ...DEFAULT_SETTINGS, ...saved });
       }
       if (mounted) setReady(true);
     })();
@@ -88,16 +80,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const setTempUnit = useCallback((tempUnit: TempUnit) => update({ tempUnit }), [update]);
   const setReduceMotion = useCallback((reduceMotion: boolean) => update({ reduceMotion }), [update]);
 
-  const setNasaKey = useCallback(
-    (nasaApiKey: string) => {
-      setNasaApiKey(nasaApiKey);
-      update({ nasaApiKey });
-    },
-    [update],
-  );
-
   const resetSettings = useCallback(() => {
-    setNasaApiKey(DEFAULT_SETTINGS.nasaApiKey);
     setSettings(DEFAULT_SETTINGS);
   }, []);
 
@@ -108,11 +91,10 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
       setThemeMode,
       setAccentKey,
       setTempUnit,
-      setNasaKey,
       setReduceMotion,
       resetSettings,
     }),
-    [settings, ready, setThemeMode, setAccentKey, setTempUnit, setNasaKey, setReduceMotion, resetSettings],
+    [settings, ready, setThemeMode, setAccentKey, setTempUnit, setReduceMotion, resetSettings],
   );
 
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;

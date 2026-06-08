@@ -36,4 +36,8 @@ export const DATA_SOURCES: { label: string; description: string; url: string }[]
   { label: 'wheretheiss.at', description: 'Posição da ISS em tempo real', url: 'https://wheretheiss.at/' },
 ];
 
-export const NASA_KEY_URL = 'https://api.nasa.gov/';
+/**
+ * Chave da API da NASA usada pelo app (APOD + NeoWs).
+ * >>> Substitua pela sua chave pessoal gerada em https://api.nasa.gov/ <<<
+ */
+export const NASA_API_KEY = 'DEMO_KEY';
