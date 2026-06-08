@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { useSettings } from '../../contexts/SettingsContext';
+import { parseISODate } from '../../utils/date';
 import { formatNumber, formatTemp, toFahrenheit } from '../../utils/format';
 import type { RequestStatus, WeatherData } from '../../types';
 import { AppText } from '../ui/Text';
@@ -37,7 +38,7 @@ function MiniStat({ icon, value, label }: { icon: keyof typeof Ionicons.glyphMap
 
 function weekdayLabel(date: string, index: number): string {
   if (index === 0) return 'Hoje';
-  const wd = new Date(date).toLocaleDateString('pt-BR', { weekday: 'short' });
+  const wd = parseISODate(date).toLocaleDateString('pt-BR', { weekday: 'short' });
   return wd.replace('.', '').slice(0, 3);
 }
 

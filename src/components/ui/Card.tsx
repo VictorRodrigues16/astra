@@ -75,7 +75,6 @@ export function Card({
 
   return (
     <AnimatedPressable
-      accessibilityRole="button"
       onPress={() => {
         if (haptic) tapFeedback();
         onPress();

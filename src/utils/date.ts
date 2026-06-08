@@ -17,9 +17,22 @@ export function addDays(date: Date, days: number): Date {
   return copy;
 }
 
+/**
+ * Converte uma string ISO em Date interpretando datas "YYYY-MM-DD" como
+ * LOCAIS (e nao UTC). Isso evita o classico bug de "voltar um dia" ao exibir
+ * datas que vem sem horario (APOD, aproximacao de asteroides, previsao).
+ */
+export function parseISODate(iso: string): Date {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (match) {
+    return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  }
+  return new Date(iso);
+}
+
 /** Data por extenso curta em pt-BR, ex.: "03 jun 2026". */
 export function formatDate(iso: string): string {
-  const date = new Date(iso);
+  const date = parseISODate(iso);
   if (Number.isNaN(date.getTime())) return iso;
   return date.toLocaleDateString('pt-BR', {
     day: '2-digit',
