@@ -7,6 +7,7 @@
 import { NASA_API_KEY } from '../constants';
 import { addDays, toISODate } from '../utils/date';
 import { createClient } from './http';
+import { translateToPtBr } from './translate.service';
 import { ServiceResult, cachedRequest } from './withCache';
 import type {
   Apod,
@@ -43,7 +44,14 @@ export async function fetchApod(options: { force?: boolean } = {}): Promise<Serv
       const { data } = await client.get<ApodRaw>('/planetary/apod', {
         params: { api_key: NASA_API_KEY, thumbs: true },
       });
-      return normalizeApod(data);
+      const apod = normalizeApod(data);
+      // A NASA so entrega o APOD em ingles; traduzimos para PT-BR (com
+      // fallback para o original) antes de cachear.
+      const [title, explanation] = await Promise.all([
+        translateToPtBr(apod.title),
+        translateToPtBr(apod.explanation),
+      ]);
+      return { ...apod, title, explanation };
     },
     options,
   );

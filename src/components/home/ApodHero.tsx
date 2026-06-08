@@ -91,11 +91,14 @@ export function ApodHero({ apod }: { apod: Apod }) {
         <AppText variant="bodySecondary" numberOfLines={expanded ? undefined : 3} style={{ lineHeight: 21 }}>
           {apod.explanation}
         </AppText>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2, marginTop: theme.spacing.sm }}>
-          <AppText variant="caption" color="accent" style={{ fontWeight: '700' }}>
-            {expanded ? 'Ler menos' : 'Ler mais'}
-          </AppText>
-          <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={14} color={theme.accent.color} />
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: theme.spacing.sm }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+            <AppText variant="caption" color="accent" style={{ fontWeight: '700' }}>
+              {expanded ? 'Ler menos' : 'Ler mais'}
+            </AppText>
+            <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={14} color={theme.accent.color} />
+          </View>
+          <AppText style={{ fontSize: 10, color: theme.colors.textMuted }}>tradução automática</AppText>
         </View>
       </Pressable>
     </Card>
