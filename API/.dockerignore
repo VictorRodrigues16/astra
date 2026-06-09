@@ -1,0 +1,5 @@
+# Apenas node_modules e ignorado no build.
+# (V3) O .env com segredos NAO esta aqui de proposito, entao ele acaba sendo
+# copiado para dentro da imagem — vazamento de segredo no contexto Docker.
+node_modules
+npm-debug.log

@@ -1,0 +1,14 @@
+# docker-compose da Astra API (uso local apenas).
+# NUNCA exponha este servico na internet publica — ele e intencionalmente
+# vulneravel (ver VULNERABILITIES.md).
+version: "3.8"
+
+services:
+  astra-api:
+    build: .
+    container_name: astra-api
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+    restart: unless-stopped

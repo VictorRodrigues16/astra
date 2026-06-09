@@ -2,12 +2,13 @@
  * Geocodificacao reversa (coordenadas -> nome da cidade) via BigDataCloud,
  * endpoint "client" gratuito e sem chave. Resultado cacheado por 24h.
  */
+import { resolveBase } from '../config';
 import { formatCoord } from '../utils/format';
 import { createClient } from './http';
 import { cachedRequest } from './withCache';
 import type { GeoLocation } from '../types';
 
-const client = createClient('https://api.bigdatacloud.net');
+const client = createClient(resolveBase('bigdatacloud', 'https://api.bigdatacloud.net'));
 
 /** Localizacao padrao caso o usuario negue o GPS (Sao Paulo, BR). */
 export const DEFAULT_LOCATION: GeoLocation = {

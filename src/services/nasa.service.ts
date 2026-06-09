@@ -5,6 +5,7 @@
  * A chave da API e definida em src/constants.ts (NASA_API_KEY).
  */
 import { NASA_API_KEY } from '../constants';
+import { resolveBase } from '../config';
 import { addDays, toISODate } from '../utils/date';
 import { createClient } from './http';
 import { translateToPtBr } from './translate.service';
@@ -17,7 +18,7 @@ import type {
   NeoRaw,
 } from '../types';
 
-const client = createClient('https://api.nasa.gov');
+const client = createClient(resolveBase('nasa', 'https://api.nasa.gov'));
 
 /* --------------------------------- APOD --------------------------------- */
 function normalizeApod(raw: ApodRaw): Apod {

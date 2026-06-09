@@ -4,11 +4,12 @@
  * cada atualizacao do polling busque dados frescos, mas guarda a ultima
  * posicao para fallback em caso de falha de rede.
  */
+import { resolveBase } from '../config';
 import { createClient } from './http';
 import { ServiceResult, cachedRequest } from './withCache';
 import type { IssPosition, IssRaw } from '../types';
 
-const client = createClient('https://api.wheretheiss.at');
+const client = createClient(resolveBase('iss', 'https://api.wheretheiss.at'));
 
 /** ID NORAD da ISS. */
 const ISS_ID = 25544;

@@ -2,12 +2,13 @@
  * Servico de clima via Open-Meteo (gratuito, sem chave de API e com CORS
  * liberado — funciona inclusive na versao Web).
  */
+import { resolveBase } from '../config';
 import { describeWeather } from '../utils/weather';
 import { createClient } from './http';
 import { ServiceResult, cachedRequest } from './withCache';
 import type { OpenMeteoRaw, WeatherData } from '../types';
 
-const client = createClient('https://api.open-meteo.com');
+const client = createClient(resolveBase('openmeteo', 'https://api.open-meteo.com'));
 
 const FIFTEEN_MIN = 15 * 60 * 1000;
 

@@ -1,0 +1,2 @@
+Astra API — arquivo de exemplo para o endpoint /api/files.
+Em um cenario real este diretorio conteria documentos publicos.

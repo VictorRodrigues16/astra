@@ -9,9 +9,10 @@
  * A traducao acontece dentro da busca do APOD (camada de servico), que e
  * cacheada — ou seja, traduzimos no maximo uma vez por janela de cache.
  */
+import { resolveBase } from '../config';
 import { createClient } from './http';
 
-const client = createClient('https://translate.googleapis.com');
+const client = createClient(resolveBase('gtx', 'https://translate.googleapis.com'));
 
 /** Quebra o texto em pedacos curtos, respeitando limites de frase/palavra. */
 function splitForTranslation(text: string, maxLen = 450): string[] {
