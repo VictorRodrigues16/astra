@@ -182,15 +182,13 @@ npx expo-doctor     # diagnóstico do projeto — 19/19 checks
 
 ## 📸 Capturas de tela
 
-> As capturas devem ser adicionadas em `assets/readme/` (ex.: `home.png`, `explore.png`, `detail.png`, `favorites.png`, `settings.png`) e referenciadas abaixo. Rode o app com `npx expo start --web` ou no Expo Go e capture as telas.
-
 | Início | Explorar | Detalhe |
 |:---:|:---:|:---:|
-| _home.png_ | _explore.png_ | _detail.png_ |
+| <img src="./assets/readme/home.png" width="240" /> | <img src="./assets/readme/explore.png" width="240" /> | <img src="./assets/readme/detail.png" width="240" /> |
 
 | Favoritos | Configurações | Tema claro |
 |:---:|:---:|:---:|
-| _favorites.png_ | _settings.png_ | _light.png_ |
+| <img src="./assets/readme/favorites.png" width="240" /> | <img src="./assets/readme/settings.png" width="240" /> | <img src="./assets/readme/home-light.png" width="240" /> |
 
 ---
 
