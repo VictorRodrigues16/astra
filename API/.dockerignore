@@ -1,5 +1,18 @@
-# Apenas node_modules e ignorado no build.
-# (V3) O .env com segredos NAO esta aqui de proposito, entao ele acaba sendo
-# copiado para dentro da imagem — vazamento de segredo no contexto Docker.
+# Correção da V3: NÃO levar segredos nem lixo para a imagem.
 node_modules
 npm-debug.log
+
+# segredos / ambiente — NUNCA dentro da imagem
+.env
+.env.*
+
+# artefatos de seguranca e docs (não precisam na imagem)
+security
+*.md
+
+# git / metadados
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml

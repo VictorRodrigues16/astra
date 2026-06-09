@@ -28,8 +28,10 @@ function makeForwarder(base, injectParams) {
       res.status(upstream.status).json(upstream.data);
     } catch (err) {
       const status = err.response ? err.response.status : 502;
-      // Mensagem de erro verbosa (ver V6 em VULNERABILITIES.md).
-      res.status(status).json({ error: 'upstream_error', upstream: url, detail: err.message });
+      // V6 (corrigido): loga o detalhe server-side e responde genérico ao
+      // cliente (sem vazar a URL interna nem a mensagem de erro).
+      console.error('[astra-api] upstream_error', url, err.message);
+      res.status(status).json({ error: 'upstream_error' });
     }
   };
 }

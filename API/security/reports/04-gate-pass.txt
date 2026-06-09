@@ -1,0 +1,22 @@
+# Evidencia DEPOIS — GATE liberando o deploy (codigo corrigido)
+# Comando: IMAGE_NAME=astra-api:fixed EXIT_CODE=1 ./scan-trivy.sh
+# Resultado: nenhuma vulnerabilidade HIGH/CRITICAL => Trivy retorna 0 => deploy LIBERADO.
+
+Report Summary
+
+┌───────────────────┬────────────┬─────────────────┬─────────┬───────────────────┐
+│      Target       │    Type    │ Vulnerabilities │ Secrets │ Misconfigurations │
+├───────────────────┼────────────┼─────────────────┼─────────┼───────────────────┤
+│ package-lock.json │    npm     │        0        │    -    │         -         │
+├───────────────────┼────────────┼─────────────────┼─────────┼───────────────────┤
+│ Dockerfile        │ dockerfile │        -        │    -    │         0         │
+└───────────────────┴────────────┴─────────────────┴─────────┴───────────────────┘
+Legend:
+Report Summary
+
+┌────────────────────────────────────────────────────────────────────┬──────────┬─────────────────┐
+│                               Target                               │   Type   │ Vulnerabilities │
+├────────────────────────────────────────────────────────────────────┼──────────┼─────────────────┤
+│ astra-api:fixed (alpine 3.23.4)                                    │  alpine  │        0        │
+
+>>> Exit code do scan: 0   (== 0  =>  build/deploy APROVADO)

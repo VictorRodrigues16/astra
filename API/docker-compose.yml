@@ -1,8 +1,6 @@
-# docker-compose da Astra API (uso local apenas).
-# NUNCA exponha este servico na internet publica — ele e intencionalmente
-# vulneravel (ver VULNERABILITIES.md).
-version: "3.8"
-
+# docker-compose da Astra API (versão corrigida / hardened, uso local).
+# Os segredos NÃO ficam aqui: o app lê NASA_API_KEY do ambiente (.env local,
+# fora do versionamento). Sem chave definida, usa DEMO_KEY da NASA.
 services:
   astra-api:
     build: .
@@ -11,4 +9,7 @@ services:
       - "3001:3001"
     environment:
       - PORT=3001
+      # Para usar sua chave real da NASA, defina NASA_API_KEY no .env (mesma
+      # pasta) e descomente a linha abaixo:
+      # - NASA_API_KEY=${NASA_API_KEY}
     restart: unless-stopped

@@ -1,38 +1,24 @@
 /*
  * ============================================================================
- *  CONFIG — Astra API
+ *  CONFIG — Astra API (versão corrigida / hardened)
  * ============================================================================
- *  ATENCAO (modulo de Ciberseguranca / DevSecOps):
- *  Este arquivo contem segredos HARDCODED de PROPOSITO. Representa a
- *  vulnerabilidade "Vazamento de Segredos" do exercicio. Ver VULNERABILITIES.md.
- *
- *  >>> NAO use este padrao em producao real. <<<
- *  O correto seria carregar de variaveis de ambiente / cofre (Vault, AWS
- *  Secrets Manager, GitHub Secrets) e NUNCA versionar segredos.
+ *  Correção da V1 (Vazamento de Segredos):
+ *   - Sem segredos hardcoded no código.
+ *   - Valores vêm SOMENTE de variáveis de ambiente (.env local fora do Git,
+ *     cofre ou GitHub Secrets).
+ *   - O .env foi removido do versionamento (git rm --cached) e a chave real
+ *     que estava exposta deve ser ROTACIONADA em https://api.nasa.gov.
  * ============================================================================
  */
 require('dotenv').config();
 
-// VULN (segredos hardcoded + fallback que expoe os valores no codigo-fonte):
 const config = {
   port: process.env.PORT || 3001,
 
-  // Chave real da NASA exposta no codigo (e tambem no .env versionado).
-  nasaApiKey: process.env.NASA_API_KEY || 'lAqSdO6KizcNUTtWDjuVlhhS6YbcQhzdgMXA2HuR',
-
-  // "Segredo" de assinatura de JWT fraco e hardcoded.
-  jwtSecret: process.env.JWT_SECRET || 'astra-super-secret-2026',
-
-  // Credenciais de banco ficticias, hardcoded (exemplo de vazamento).
-  db: {
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'admin',
-    password: process.env.DB_PASSWORD || 'admin123',
-    name: process.env.DB_NAME || 'astra',
-  },
-
-  // Token de "admin" estatico usado por endpoints "internos" (sem auth real).
-  adminToken: process.env.ADMIN_TOKEN || 'let-me-in',
+  // DEMO_KEY é a chave pública de demonstração da NASA (rate-limit baixo).
+  // Para uso real, defina NASA_API_KEY via ambiente/cofre — sem fallback de
+  // segredo no código-fonte.
+  nasaApiKey: process.env.NASA_API_KEY || 'DEMO_KEY',
 };
 
 module.exports = config;

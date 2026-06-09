@@ -5,10 +5,11 @@ externas usadas pelo app Astra (NASA APOD/NeoWs, Open-Meteo, ISS, geocodificaç�
 e tradução). O app mobile passa a chamar este backend em vez de bater direto nas
 APIs de terceiros.
 
-> ⚠️ **Artefato educacional.** Este serviço foi construído com vulnerabilidades
-> **intencionais** para o módulo de **Cibersegurança / DevSecOps** da Global
-> Solution. Veja **[VULNERABILITIES.md](./VULNERABILITIES.md)**.
-> **Não publique na internet** — rode apenas local / Docker.
+> 🛡️ **Versão corrigida (hardened).** Este backend nasceu com vulnerabilidades
+> **intencionais** para o módulo de **Cibersegurança / DevSecOps** (ver
+> **[VULNERABILITIES.md](./VULNERABILITIES.md)**). As falhas foram **detectadas**
+> pelo scan em **[`security/`](./security)** e **corrigidas** — o histórico
+> antes/depois está em `security/reports/`.
 
 ---
 
@@ -17,8 +18,9 @@ APIs de terceiros.
 ### Node
 ```bash
 cd API
+cp .env.example .env   # ajuste a chave da NASA se quiser (DEMO_KEY funciona)
 npm install
-npm start          # http://localhost:3001
+npm start              # http://localhost:3001
 ```
 
 ### Docker
@@ -31,7 +33,7 @@ docker compose up --build   # http://localhost:3001
 
 ## 🔌 Endpoints
 
-### Proxies legítimos (espelham os upstreams)
+### Proxies (espelham os upstreams)
 | Rota | Upstream |
 |---|---|
 | `GET /api/nasa/planetary/apod` | NASA APOD (chave injetada server-side) |
@@ -42,14 +44,11 @@ docker compose up --build   # http://localhost:3001
 | `GET /api/gtx/translate_a/single` | Google Translate |
 | `GET /api/health` | Healthcheck |
 
-### Endpoints intencionalmente vulneráveis (exercício)
-| Rota | Vulnerabilidade |
-|---|---|
-| `GET /api/proxy?url=` | SSRF (V4) |
-| `GET /api/diagnostics/ping?host=` | Command Injection (V7) |
-| `GET /api/files?name=` | Path Traversal (V8) |
-| `GET /api/debug/config` | Exposição de segredos (V1/V6) |
-| `GET /api/admin/secrets?token=` | Broken Auth (V5) |
+> ℹ️ Os endpoints intencionalmente vulneráveis que existiam (`/api/proxy`,
+> `/api/diagnostics/ping`, `/api/files`, `/api/debug/config`,
+> `/api/admin/secrets`) foram **removidos** na correção (V4, V5, V7, V8). A única
+> superfície pública agora são os proxies acima, com `helmet`, CORS por allowlist
+> e rate limiting.
 
 ---
 
@@ -63,8 +62,7 @@ EXPO_PUBLIC_API_URL=http://localhost:3001
 ```
 
 Com isso, os serviços do app (`src/services/*`) passam a chamar este proxy.
-Sem a variável, o app chama as APIs externas diretamente (modo usado na build
-de produção da web, já que o backend vulnerável não vai para a internet).
+Sem a variável, o app chama as APIs externas diretamente.
 
 ---
 
@@ -72,9 +70,11 @@ de produção da web, já que o backend vulnerável não vai para a internet).
 
 Este backend é o "alvo" do módulo de Cibersegurança:
 
-1. **Mapeamento de riscos** → tabela em `VULNERABILITIES.md`.
+1. **Mapeamento de riscos** → tabela em [`VULNERABILITIES.md`](./VULNERABILITIES.md).
 2. **Controles** → SCA (`npm audit`), secret scan (gitleaks), scan de imagem
    (Trivy), SAST (Semgrep/CodeQL), DAST.
-3. **Implementação prática** → ex.: rodar `npm audit` / Trivy / gitleaks no CI.
+3. **Implementação prática** → **scan de vulnerabilidades com Trivy** (dependências
+   + imagem). Script, relatórios e instruções em [`security/`](./security).
 4. **Simulação de pipeline** → o scan detecta a falha → o deploy é bloqueado →
-   correção aplicada.
+   **correção aplicada** (ver `security/reports/antes/` vs `security/reports/` e a
+   seção "Status das correções" em `VULNERABILITIES.md`).

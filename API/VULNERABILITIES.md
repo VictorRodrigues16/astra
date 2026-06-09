@@ -136,3 +136,24 @@ sanitizar (`path.join(dataDir, name)`), permitindo `../../etc/passwd`.
 | V6 | Falta de monitoramento | Incidentes não detectados | Auditoria/monitoria contínua |
 | V7 | Command injection | Execução remota de comandos | SAST + validação de entrada |
 | V8 | Path traversal | Leitura de arquivos sensíveis | SAST + validação de entrada |
+
+---
+
+## ✅ Status das correções (aplicadas)
+
+> O ciclo DevSecOps foi fechado: **detectar** (scan em `security/`) → **bloquear**
+> (gate) → **corrigir** (abaixo) → **validar** (re-scan limpo em `security/reports/`).
+
+| Vuln | Status | O que foi feito | Onde |
+|---|---|---|---|
+| **V1** Segredos | ✅ Corrigido | Removidos os segredos hardcoded; `config.js` lê só de env; `.env` removido do Git (`git rm --cached`) e no `.gitignore`; log do segredo e endpoints de debug removidos. **Chave da NASA a rotacionar.** | `config.js`, `server.js`, `.env`, `.gitignore` |
+| **V2** Dependências | ✅ Corrigido | `axios`→^1.17, `express`→^4.21, `dotenv`→^16; removidos `lodash` e `jsonwebtoken` (não usados). | `package.json` |
+| **V3** Imagem | ✅ Corrigido | `node:20-alpine`, multi-stage, `npm ci --omit=dev`, `USER node` (não-root), `.dockerignore` exclui `.env`, `HEALTHCHECK`. | `Dockerfile`, `.dockerignore` |
+| **V4** SSRF | ✅ Corrigido | Endpoint `/api/proxy` aberto **removido**. Restam só proxies de upstreams fixos. | `routes/vulnerable.js` (removido) |
+| **V5** Permissões | ✅ Corrigido | `helmet`, CORS por allowlist, `express-rate-limit`; endpoint `/api/admin/secrets` removido. | `server.js` |
+| **V6** Monitoramento | ✅ Corrigido | Sem segredo em log; erros genéricos ao cliente (sem stack trace); `/api/debug/config` removido. | `server.js`, `routes/upstreams.js` |
+| **V7** Command Injection | ✅ Corrigido | Endpoint `/api/diagnostics/ping` (`exec`) **removido**. | `routes/vulnerable.js` (removido) |
+| **V8** Path Traversal | ✅ Corrigido | Endpoint `/api/files` **removido**. | `routes/vulnerable.js` (removido) |
+
+**Evidência antes × depois:** ver `security/reports/antes/` (estado vulnerável) e
+`security/reports/` (estado corrigido), além de `security/README.md`.
