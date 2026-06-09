@@ -18,9 +18,11 @@ export interface Member {
 }
 
 export const TEAM: Member[] = [
-  { name: 'Integrante 1', rm: 'RM000000' },
-  { name: 'Integrante 2', rm: 'RM000000' },
-  { name: 'Integrante 3', rm: 'RM000000' },
+  { name: 'Erick Molina', rm: 'RM 553852' },
+  { name: 'Felipe Castro Salazar', rm: 'RM 553464' },
+  { name: 'Marcelo Vieira de Melo', rm: 'RM 552953' },
+  { name: 'Rayara Amaro Figueiredo', rm: 'RM 552635' },
+  { name: 'Victor Rodrigues', rm: 'RM 554158' },
 ];
 
 export const ODS: { code: string; label: string }[] = [

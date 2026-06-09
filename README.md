@@ -208,13 +208,15 @@ npx expo-doctor     # diagnóstico do projeto — 19/19 checks
 
 ## 👥 Equipe
 
-> Edite os nomes e RMs em `src/constants.ts` (eles aparecem na tela de Configurações).
+> Integrantes do grupo (também exibidos na tela de Configurações do app).
 
 | Nome | RM |
 |---|---|
-| Integrante 1 | RM000000 |
-| Integrante 2 | RM000000 |
-| Integrante 3 | RM000000 |
+| Erick Molina | RM 553852 |
+| Felipe Castro Salazar | RM 553464 |
+| Marcelo Vieira de Melo | RM 552953 |
+| Rayara Amaro Figueiredo | RM 552635 |
+| Victor Rodrigues | RM 554158 |
 
 ---
 
