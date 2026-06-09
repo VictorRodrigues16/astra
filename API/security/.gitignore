@@ -1,0 +1,4 @@
+# cache do banco de CVEs do Trivy (nao versionar — e grande e regeneravel)
+.trivycache/
+
+# os relatorios em reports/ SAO versionados de proposito (evidencia da entrega)

@@ -1,0 +1,18 @@
+# Evidencia — Simulacao de GATE (politica bloqueando deploy)
+# Comando: EXIT_CODE=1 ./scan-trivy.sh
+# Resultado: o Trivy encontra vulnerabilidades HIGH/CRITICAL e retorna
+#            codigo de saida != 0, o que FAZ O PIPELINE FALHAR (deploy bloqueado).
+
+Report Summary
+
+┌───────────────────┬────────────┬─────────────────┬─────────┬───────────────────┐
+│      Target       │    Type    │ Vulnerabilities │ Secrets │ Misconfigurations │
+├───────────────────┼────────────┼─────────────────┼─────────┼───────────────────┤
+│ package-lock.json │    npm     │       22        │    -    │         -         │
+├───────────────────┼────────────┼─────────────────┼─────────┼───────────────────┤
+│ Dockerfile        │ dockerfile │        -        │    -    │         1         │
+└───────────────────┴────────────┴─────────────────┴─────────┴───────────────────┘
+Legend:
+
+>>> package-lock.json: Total: 22 (HIGH: 21, CRITICAL: 1)
+>>> Exit code do processo de scan: 1  (!= 0  =>  build/deploy REJEITADO)

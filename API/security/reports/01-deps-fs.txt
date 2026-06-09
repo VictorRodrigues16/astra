@@ -1,0 +1,118 @@
+
+Report Summary
+
+┌───────────────────┬────────────┬─────────────────┬─────────┬───────────────────┐
+│      Target       │    Type    │ Vulnerabilities │ Secrets │ Misconfigurations │
+├───────────────────┼────────────┼─────────────────┼─────────┼───────────────────┤
+│ package-lock.json │    npm     │       22        │    -    │         -         │
+├───────────────────┼────────────┼─────────────────┼─────────┼───────────────────┤
+│ Dockerfile        │ dockerfile │        -        │    -    │         1         │
+└───────────────────┴────────────┴─────────────────┴─────────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+package-lock.json (npm)
+=======================
+Total: 22 (HIGH: 21, CRITICAL: 1)
+
+┌────────────────┬────────────────┬──────────┬────────┬───────────────────┬──────────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────┐
+│    Library     │ Vulnerability  │ Severity │ Status │ Installed Version │                      Fixed Version                       │                            Title                             │
+├────────────────┼────────────────┼──────────┼────────┼───────────────────┼──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ axios          │ CVE-2021-3749  │ HIGH     │ fixed  │ 0.21.1            │ 0.21.2                                                   │ nodejs-axios: Regular expression denial of service in trim   │
+│                │                │          │        │                   │                                                          │ function                                                     │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2021-3749                    │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2025-27152 │          │        │                   │ 1.8.2, 0.30.0                                            │ axios: Possible SSRF and Credential Leakage via Absolute URL │
+│                │                │          │        │                   │                                                          │ in axios Requests...                                         │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2025-27152                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-25639 │          │        │                   │ 1.13.5, 0.30.3                                           │ axios: Axios affected by Denial of Service via __proto__ Key │
+│                │                │          │        │                   │                                                          │ in mergeConfig...                                            │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-25639                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-42033 │          │        │                   │ 1.15.1, 0.31.1                                           │ axios: Axios: HTTP Transport Hijacking via Prototype         │
+│                │                │          │        │                   │                                                          │ Pollution                                                    │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-42033                   │
+│                ├────────────────┤          │        │                   │                                                          ├──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-42035 │          │        │                   │                                                          │ axios: Axios: Arbitrary HTTP header injection via prototype  │
+│                │                │          │        │                   │                                                          │ pollution                                                    │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-42035                   │
+│                ├────────────────┤          │        │                   │                                                          ├──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-42043 │          │        │                   │                                                          │ axios: Axios: NO_PROXY bypass via crafted URL                │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-42043                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-44486 │          │        │                   │ 1.16.0, 0.32.0                                           │ Axios: Proxy-Authorization header leaks to redirect target   │
+│                │                │          │        │                   │                                                          │ when proxy is re-evaluated to...                             │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-44486                   │
+│                ├────────────────┤          │        │                   │                                                          ├──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-44487 │          │        │                   │                                                          │ Axios: Proxy-Authorization Credential Leak to Origin Server  │
+│                │                │          │        │                   │                                                          │ Across HTTP-to-HTTPS Redirect in Axios...                    │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-44487                   │
+│                ├────────────────┤          │        │                   │                                                          ├──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-44492 │          │        │                   │                                                          │ axios's shouldBypassProxy does not recognize IPv4-mapped     │
+│                │                │          │        │                   │                                                          │ IPv6 addresses, allowing NO_PROXY bypass (incomplete...      │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-44492                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-44495 │          │        │                   │ 1.15.2, 0.31.1                                           │ axios Vulnerable to Credential Theft and Response Hijacking  │
+│                │                │          │        │                   │                                                          │ via Prototype Pollution Gadget...                            │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-44495                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-44496 │          │        │                   │ 1.16.0, 0.32.0                                           │ Axios: Regular Expression Denial of Service (ReDoS) via      │
+│                │                │          │        │                   │                                                          │ Cookie Name Injection                                        │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-44496                   │
+├────────────────┼────────────────┤          │        ├───────────────────┼──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ body-parser    │ CVE-2024-45590 │          │        │ 1.19.0            │ 1.20.3                                                   │ body-parser: Denial of Service Vulnerability in body-parser  │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2024-45590                   │
+├────────────────┼────────────────┤          │        ├───────────────────┼──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ jsonwebtoken   │ CVE-2022-23539 │          │        │ 8.5.1             │ 9.0.0                                                    │ jsonwebtoken: Unrestricted key type could lead to legacy     │
+│                │                │          │        │                   │                                                          │ keys usagen                                                  │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2022-23539                   │
+├────────────────┼────────────────┼──────────┤        ├───────────────────┼──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ lodash         │ CVE-2019-10744 │ CRITICAL │        │ 4.17.4            │ 4.17.12                                                  │ nodejs-lodash: prototype pollution in defaultsDeep function  │
+│                │                │          │        │                   │                                                          │ leading to modifying properties                              │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2019-10744                   │
+│                ├────────────────┼──────────┤        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2018-16487 │ HIGH     │        │                   │ >=4.17.11                                                │ lodash: Prototype pollution in utilities function            │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2018-16487                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2020-8203  │          │        │                   │ 4.17.19                                                  │ nodejs-lodash: prototype pollution in zipObjectDeep function │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2020-8203                    │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2021-23337 │          │        │                   │ 4.17.21                                                  │ nodejs-lodash: command injection via template                │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2021-23337                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-4800  │          │        │                   │ 4.18.0                                                   │ lodash: lodash: Arbitrary code execution via untrusted input │
+│                │                │          │        │                   │                                                          │ in template imports                                          │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-4800                    │
+├────────────────┼────────────────┤          │        ├───────────────────┼──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ path-to-regexp │ CVE-2024-45296 │          │        │ 0.1.7             │ 1.9.0, 0.1.10, 8.0.0, 3.3.0, 6.3.0                       │ path-to-regexp: Backtracking regular expressions cause ReDoS │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2024-45296                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-52798 │          │        │                   │ 0.1.12                                                   │ path-to-regexp: path-to-regexp Unpatched `path-to-regexp`    │
+│                │                │          │        │                   │                                                          │ ReDoS in 0.1.x                                               │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2024-52798                   │
+│                ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2026-4867  │          │        │                   │ 0.1.13                                                   │ path-to-regexp: path-to-regexp: Denial of Service via        │
+│                │                │          │        │                   │                                                          │ catastrophic backtracking from malformed URL parameters...   │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2026-4867                    │
+├────────────────┼────────────────┤          │        ├───────────────────┼──────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ qs             │ CVE-2022-24999 │          │        │ 6.7.0             │ 6.10.3, 6.9.7, 6.8.3, 6.7.3, 6.6.1, 6.5.3, 6.4.1, 6.3.3, │ express: "qs" prototype poisoning causes the hang of the     │
+│                │                │          │        │                   │ 6.2.4                                                    │ node process                                                 │
+│                │                │          │        │                   │                                                          │ https://avd.aquasec.com/nvd/cve-2022-24999                   │
+└────────────────┴────────────────┴──────────┴────────┴───────────────────┴──────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────┘
+
+Dockerfile (dockerfile)
+=======================
+Tests: 20 (SUCCESSES: 19, FAILURES: 1)
+Failures: 1 (HIGH: 1, CRITICAL: 0)
+
+DS-0002 (HIGH): Specify at least 1 USER command in Dockerfile with non-root user as argument
+════════════════════════════════════════
+Running containers with 'root' user can lead to a container escape situation. It is a best practice to run containers as non-root users, which can be done by adding a 'USER' statement to the Dockerfile.
+
+See https://avd.aquasec.com/misconfig/ds-0002
+────────────────────────────────────────
+
+

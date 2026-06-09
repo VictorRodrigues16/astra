@@ -75,6 +75,7 @@ Este backend é o "alvo" do módulo de Cibersegurança:
 1. **Mapeamento de riscos** → tabela em `VULNERABILITIES.md`.
 2. **Controles** → SCA (`npm audit`), secret scan (gitleaks), scan de imagem
    (Trivy), SAST (Semgrep/CodeQL), DAST.
-3. **Implementação prática** → ex.: rodar `npm audit` / Trivy / gitleaks no CI.
+3. **Implementação prática** → **scan de vulnerabilidades com Trivy** (dependências
+   + imagem Docker). Script, relatórios e instruções em **[`security/`](./security)**.
 4. **Simulação de pipeline** → o scan detecta a falha → o deploy é bloqueado →
-   correção aplicada.
+   correção aplicada. Evidência em [`security/reports/03-gate-demo.txt`](./security/reports/03-gate-demo.txt).
