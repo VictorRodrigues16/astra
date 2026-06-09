@@ -1,18 +1,4 @@
 #!/usr/bin/env bash
-# ============================================================================
-#  lint-security.sh — Checagem automatizada de segurança (DevSecOps / FIAP GS)
-# ----------------------------------------------------------------------------
-#  Implementação prática: "Criar uma checagem automatizada no pipeline
-#  (ex.: lint de segurança)."
-#
-#  Roda os analisadores de segurança sobre a API e salva evidências em reports/:
-#    1) ESLint + eslint-plugin-security (SAST) -> Command Injection (V7),
-#       Path Traversal (V8), timing attack (V5), object injection, ReDoS...
-#    2) Semgrep (rulesets de segurança)         -> SSRF e OWASP Top 10
-#    3) npm audit (análise de dependências/SCA)  -> CVEs das libs
-#
-#  A MESMA checagem roda no CI em .github/workflows/security-lint.yml.
-# ============================================================================
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
