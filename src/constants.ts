@@ -38,6 +38,10 @@ export const DATA_SOURCES: { label: string; description: string; url: string }[]
 
 /**
  * Chave da API da NASA usada pelo app (APOD + NeoWs).
- * >>> Substitua pela sua chave pessoal gerada em https://api.nasa.gov/ <<<
+ * Gerada em https://api.nasa.gov/.
+ *
+ * NOTA (exercicio de ciberseguranca): esta chave esta hardcoded de proposito,
+ * representando a vulnerabilidade "vazamento de segredos" do modulo DevSecOps.
+ * Ver API/VULNERABILITIES.md. Chave gratuita e descartavel (regenerar apos a entrega).
  */
-export const NASA_API_KEY = 'DEMO_KEY';
+export const NASA_API_KEY = 'lAqSdO6KizcNUTtWDjuVlhhS6YbcQhzdgMXA2HuR';
