@@ -50,7 +50,7 @@ detecta e a **correção** esperada.
 |---|---|
 | **Risco (PDF)** | Imagens de contêiner vulneráveis |
 | **Tema** | Segurança em Contêineres |
-| **Detecção** | **Trivy**, Grype, Docker Scout, scan de imagem no CI |
+| **Detecção** | Grype, Docker Scout, scan de imagem no CI |
 | **Correção** | Base atual e slim (`node:20-alpine`), `USER node` (não-root), `npm ci --omit=dev`, `.dockerignore` excluindo `.env`, multi-stage build, `HEALTHCHECK`. |
 
 ---
@@ -130,7 +130,7 @@ sanitizar (`path.join(dataDir, name)`), permitindo `../../etc/passwd`.
 |---|---|---|---|
 | V1 | Vazamento de segredos | Acesso indevido a APIs/dados | Gestão de Segredos + secret scanning |
 | V2 | Dependências inseguras | Exploração de CVEs | SCA (npm audit / Dependabot) |
-| V3 | Imagem de contêiner vulnerável | Comprometimento do host/cluster | Scan de imagem (Trivy) |
+| V3 | Imagem de contêiner vulnerável | Comprometimento do host/cluster | Scan de imagem (Grype/Docker Scout) |
 | V4 | SSRF | Acesso a rede interna / metadados | Zero Trust + allowlist |
 | V5 | Permissões excessivas | Acesso não autorizado | Zero Trust + autenticação + rate limit |
 | V6 | Falta de monitoramento | Incidentes não detectados | Auditoria/monitoria contínua |

@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "audit": "npm audit"
+    "audit": "npm audit",
+    "lint:security": "eslint . --max-warnings 0",
+    "lint:security:report": "eslint ."
   },
   "license": "MIT",
   "dependencies": {
@@ -17,5 +19,9 @@
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.4",
     "morgan": "1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.16.0",
+    "eslint-plugin-security": "^3.0.1"
   }
 }
